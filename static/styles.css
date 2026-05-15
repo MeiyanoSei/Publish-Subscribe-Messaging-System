@@ -1,0 +1,676 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+.header {
+    width: 100%;
+    background-color: #e5e5e5;
+    border: none;
+    border-bottom: 2px solid #4CAF50;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 16px;
+}
+
+.header h2 {
+    margin: 0;
+    color: #000;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+/* SEARCH BAR IN HEADER */
+.search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search input {
+    flex: 1;
+    margin: 0;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 0.5px solid #ccc;
+    font-size: 14px;
+    background-color: #ffffff;
+    color: #00000082;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search input::placeholder {
+    color: #0000007c;
+}
+
+.search input:hover {
+    transform: scale(1.05);
+}
+
+.search input:focus {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.search button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* HEADER BUTTONS */
+.header-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.subs-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.subs-btn:hover {
+    background-color: #38803b;
+}
+
+.logout-btn {
+    background-color: rgba(166, 166, 166, 0.345);
+    color: #333;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.logout-btn:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.53);
+}
+
+/* SUBSCRIPTIONS LIST */
+#subscriptions-list {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 0 24px;
+    font-size: 14px;
+    color: #555;
+    max-height: 0;
+    overflow: hidden;
+    transition: all ease 0.2s;
+}
+
+#subscriptions-list.open {
+    max-height: 300px;
+    padding: 12px 24px;
+}
+
+#subscriptions-list p {
+    margin: 4px 0;
+}
+
+/* SUB ITEM ROW with unfollow button */
+.sub-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sub-item span {
+    font-weight: bold;
+    color: #333;
+}
+
+.unfollow-small-btn {
+    background-color: rgb(218, 96, 96);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0;
+    transition: background-color 0.2s ease;
+}
+
+.unfollow-small-btn:hover {
+    background-color: rgb(160, 15, 15);
+}
+
+/* FEED */
+.Feed {
+    width: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.tab-container {
+    display: flex;
+    margin-bottom: 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: -2px;
+    position: relative;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+.tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #00ff3c;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.tab.active::after {
+    width: 100%;
+    left: 0%;
+}
+
+.tab.active {
+    color: #ffffff;
+    background: #4CAF50;
+    border-bottom: none;
+}
+
+.tab:hover {
+    background-color: #4caf4f7b !important;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.tab.active:hover {
+    background-color: grey !important;
+    color: #4CAF50;
+}
+
+/* POSTS */
+.post {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    max-height: 300px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    word-wrap: break-word;      
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.post.overflowing::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(transparent, rgb(255, 255, 255));
+    border-radius: 0 0 8px 8px;
+    pointer-events: none;
+}
+
+.post.overflowing.expanded::after {
+    display: none;
+}
+
+.post p {
+    margin: 8px 0 0 0;
+    color: #333;
+    font-size: 14px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.post.expanded {
+    max-height: none;
+    overflow: visible;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.post.expanded::after {
+    opacity: 0;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* POST TITLE */
+.post-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 8px 0;
+    padding: 0;
+}
+
+/* POST HEADER — username + follow btn + timestamp in one row */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.post-timestamp {
+    font-style: italic;
+    margin-left: auto;
+    font-size: 11px;
+    color: #707070;
+    white-space: nowrap;
+}
+
+.expand-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 8px;
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+/* INLINE FOLLOW BUTTON ON POSTS */
+.follow-inline-btn {
+    background-color: transparent;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.follow-inline-btn:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* INLINE UNFOLLOW BUTTON ON POSTS */
+.unfollow-inline-btn {
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.unfollow-inline-btn:hover {
+    background-color: #38803b;
+    border-color: #38803b;
+}
+
+.post span.username-link {
+    font-weight: bold;
+    color: #2196F3;
+    cursor: pointer;
+}
+
+.post span.username-link:hover {
+    text-decoration: underline;
+}
+
+.post p {
+    margin: 8px 0 0 0;
+    color: #333;
+    font-size: 14px;
+}
+
+/* TAGS */
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tag {
+    font-size: 12px;
+    color: #4CAF50;
+    cursor: pointer;
+    padding: 2px 0;
+}
+
+.tag:hover {
+    text-decoration: underline;
+}
+
+/* SEARCH HIGHLIGHT */
+mark {
+    background-color: #ffe066;
+    color: #000;
+    border-radius: 2px;
+    padding: 0 2px;
+    font-weight: bold;
+}
+
+/* FOLLOW PROMPT */
+#follow-prompt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.follow-popup {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    min-width: 200px;
+    width: 300px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.follow-popup p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+/* CREATE POST BUTTON hidden by default */
+#create-post-btn {
+    display: none;
+}
+
+/* FLOATING CREATE POST BUTTON */
+.post-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 200;
+}
+
+.post-btn:hover {
+    background-color: #347e37;
+}
+
+.post-btn:active {
+    background-color: #347e37;
+}
+
+/* POPUP */
+#post-prompt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+#post-prompt.active {
+    opacity: 1;
+    pointer-events: all;
+    background: rgba(0,0,0,0.4);
+}
+
+.post-popup {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    min-width: 200px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transform: scale(0.95) translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#post-prompt.active .post-popup {
+    transform: scale(1) translateY(0);
+}
+
+.post-popup h2 {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.post-popup textarea {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.popup-buttons button {
+    flex: 1;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background-color: #bbb;
+}
+
+/* IMAGE ATTACH */
+.image-attach {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    text-align: left;
+}
+
+.image-attach label {
+    cursor: pointer;
+    color: #4CAF50;
+    font-size: 14px;
+}
+
+.image-attach input[type="file"] {
+    display: none;
+}
+
+#image-preview {
+    position: relative;
+    margin: 8px 0;
+}
+
+#image-preview img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#image-preview button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* MESSAGES */
+.error {
+    color: red;
+    font-size: 13px;
+}
+
+.success {
+    color: green;
+    font-size: 13px;
+}
+
+.hidden {
+    display: none;
+}
+
+input, textarea {
+    display: block;
+    margin: 8px 0;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+button {
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    margin: 4px 0;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #38813c;
+}
+
+/* NOTIFICATION TOAST */
+#toast {
+    position: fixed;
+    bottom: 90px;
+    right: 32px;
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+#toast.show { opacity: 1; transform: translateY(0); }
+#toast.success { border-left: 4px solid #4CAF50; }
+#toast.error { border-left: 4px solid red; }
+
+/* HASHTAGS inside post text */
+.inline-tag {
+    color: #4CAF50;
+    font-style: italic;
+    cursor: pointer;
+}
+
+/* USERNAME LINKS */
+.username-link {
+    font-weight: bold;
+    color: #2196F3;
+    cursor: pointer;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+}

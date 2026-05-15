@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/auth.css">
+</head>
+<body>
+
+    <!-- AUTH SECTION -->
+    <div id="auth-section">
+        <div class="container">
+
+            <div class="form-container sign-up-container">
+                <div class="form-inner">
+                    <h1>Create Account</h1>
+                    <input type="text" id="reg-username" placeholder="Username">
+                    <input type="password" id="reg-password" placeholder="Password">
+                    <div class="custom-select" id="role-select">
+                        <div class="selected-option">Publisher</div>
+                        <div class="options">
+                            <div class="option" data-value="publisher">Publisher</div>
+                            <div class="option" data-value="viewer">Viewer</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="reg-role" value="publisher">
+                    <button onclick="register()">Register</button>
+                    <p id="reg-message"></p>
+                </div>
+            </div>
+
+            <div class="form-container log-in-container">
+                <div class="form-inner">
+                    <h1>Log In</h1>
+                    <input type="text" id="login-username" placeholder="Username">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <button onclick="login()">Login</button>
+                    <p id="login-message"></p>
+                </div>
+            </div>
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>Don't have an account? Register here!</p>
+                        <button class="ghost" id="log-in-btn">Register</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello!</h1>
+                        <p>Already have an account? Log in!</p>
+                        <button class="ghost" id="sign-up-btn">Log In</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN SECTION -->
+    <div id="main-section" class="hidden">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>Welcome, <span id="display-username"></span></h2>
+
+            <div class="search">
+                <svg width="30px" height="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <title>ionicons-v5-f</title>
+                        <path d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z" style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-width:32px"></path>
+                        <line x1="338.29" y1="338.29" x2="448" y2="448" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"></line>
+                    </g>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search posts, @users, #tags..." oninput="searchPosts()">
+                <button onclick="getSubs()" class="subs-btn">Following</button>
+            </div>
+
+            <div class="header-buttons">
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- SUBSCRIPTIONS DROPDOWN -->
+        <div id="subscriptions-list"></div>
+
+        <!-- FEED -->
+        <div class="Feed">
+            <div class="tab-container">
+                <button class="tab active" onclick="showFeed('all', this)">For You</button>
+                <button class="tab" onclick="showFeed('sub', this)">Following</button>
+            </div>
+            <div id="feed"></div>
+        </div>
+
+    </div>
+
+    <!-- FLOATING CREATE POST BUTTON -->
+    <button class="post-btn" id="create-post-btn" onclick="showPostPrompt()">
+        + Create Post
+    </button>
+
+    <!-- POST PROMPT POPUP -->
+    <div id="post-prompt">
+        <div class="post-popup">
+            <h2>Create Post</h2>
+
+            <!-- Title -->
+            <input type="text" id="post-title" placeholder="Add a title (optional)">
+
+            <!-- Text -->
+            <textarea id="post-content" placeholder="What's on your mind? Use #hashtags"></textarea>
+
+            <!-- Image Attach -->
+            <div class="image-attach">
+                <label for="post-image">📎 Attach Image</label>
+                <input type="file" id="post-image" accept="image/*" onchange="previewImage(this)">
+            </div>
+
+            <!-- Image Preview -->
+            <div id="image-preview" class="hidden">
+                <img id="preview-img" src="" alt="preview">
+                <button onclick="removeImage()">✕ Remove</button>
+            </div>
+
+            <!-- Buttons -->
+            <div class="popup-buttons">
+                <button class="cancel-btn" onclick="closePostPrompt()">Cancel</button>
+                <button onclick="publish()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <!-- load order matters: shared state first, then features, then UI -->
+    <script src="/static/auth.js"></script>
+    <script src="/static/render.js"></script>
+    <script src="/static/subscriptions.js"></script>
+    <script src="/static/feed.js"></script>
+    <script src="/static/search.js"></script>
+    <script src="/static/publish.js"></script>
+    <script src="/static/login.js"></script>
+    <script src="/static/anims.js"></script>
+</body>
+</html>

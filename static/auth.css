@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+#auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    animation: fadeSlideIn 0.5s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes optionSlideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.container {
+    background-color: #63636393;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    overflow: hidden;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+}
+
+.log-in-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 0;
+}
+
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+}
+
+.container.right-panel-active .log-in-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+.form-inner {
+    background-color: #575757;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    height: 100%;
+    text-align: center;
+}
+
+.form-inner h1 {
+    font-family: 'Poppins', sans-serif;
+    color: rgb(226, 226, 226);
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+.form-inner input {
+    border-radius: 20px;
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-inner input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+    outline: none;
+}
+
+.form-inner button {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 2px;
+    border: none;
+    padding: 12px 15px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.form-inner button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.form-inner button:active {
+    transform: translateY(1px);
+}
+
+#reg-message, #login-message {
+    color: #eee;
+    font-size: 13px;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* CUSTOM DROPDOWN */
+.custom-select {
+    position: relative;
+    width: 100%;
+    margin: 8px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.selected-option {
+    background-color: #eee;
+    border-radius: 20px;
+    padding: 12px 35px 12px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+    text-align: left;
+    transition: border-radius 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-select.open .selected-option {
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+.selected-option::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 12px;
+}
+
+.custom-select.open .selected-option::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #4a4a4a;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    z-index: 999;
+    transform: scaleY(0) translateY(-5px);
+    transform-origin: top;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.custom-select.open .options {
+    transform: scaleY(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.option {
+    padding: 12px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: white;
+    text-align: left;
+    transition: background-color 0.2s ease,
+                padding-left 0.2s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.option:last-child {
+    border-bottom: none;
+}
+
+.option:hover {
+    background-color: #4CAF50;
+    padding-left: 20px;
+}
+
+.custom-select.open .option:nth-child(1) {
+    animation: optionSlideIn 0.2s ease 0.05s both;
+}
+
+.custom-select.open .option:nth-child(2) {
+    animation: optionSlideIn 0.2s ease 0.1s both;
+}
+
+/* OVERLAY */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay {
+    border-radius: 20px;
+    background: #1a1a1a;
+    color: white;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.overlay-panel p {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.overlay-left {
+    left: 0;
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(0);
+}
+
+.ghost {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 20px;
+    padding: 10px 24px;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.ghost:hover {
+    background-color: rgba(255,255,255,0.1);
+}
